@@ -1,6 +1,8 @@
 import React from 'react';
+
 import './Login.scss';
 import { Button } from '@material-ui/core';
+
 import { auth, provider } from '../../services/firebase';
 import { useStateValue } from '../../services/StateProvider';
 import { actionTypes } from '../../services/reducer';
@@ -11,10 +13,10 @@ const Login = () => {
   const signIn = () => {
     auth
       .signInWithPopup(provider)
-      .then(res => {
+      .then(result => {
         dispatch({
           type: actionTypes.SET_USER,
-          user: res.user,
+          user: result.user,
         })
       })
       .catch(error => alert(error.message));
@@ -31,13 +33,10 @@ const Login = () => {
           src="https://www.logo.wine/a/logo/Facebook/Facebook-Logo.wine.svg"
           alt=""
         />
-        <Button
-          type='submit'
-          onClick={signIn}
-        >
-          Sign In
-        </Button>
       </div>
+      <Button type='submit' onClick={signIn}>
+        Sign In
+      </Button>
     </div>
   );
 }
